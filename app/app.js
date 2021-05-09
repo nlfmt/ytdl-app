@@ -19,3 +19,8 @@ function toggleListener(){
     }
     listening = !listening;
 }
+
+ipcRenderer.on("progress", (e, data) => {
+    console.log("progress:", data)
+    document.querySelector("progress").setAttribute("value", data.split(" ")[1])
+});
