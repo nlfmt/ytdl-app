@@ -18,6 +18,8 @@ app.on("ready", ()=>{
   mainWindow.loadURL(`file://${__dirname}/app/home.html`)
   mainWindow.on("closed", ()=> app.quit())
 
+  var listener;
+
 
   // File Picker
   ipcMain.on("filepicker", (e, args) => {
@@ -34,23 +36,35 @@ app.on("ready", ()=>{
   });
 
   // Downloader
-  ipcMain.on("download", (e) => {
-    
-    url = cb.paste();
-    console.log(`Downloading ${url}`)
+  function download(url, reply){
 
-    const downloader = spawn("python", ["dl_agent.py", url]);
+    const downloader = spawn("python", ["util/dl_agent.py", url]);
 
     downloader.stdout.on("data", data => {
-    console.log(`'${data}'`)
-    });
-
-  });
-
-  ipcMain.on("toggleListener", e => {
-    const listener = spawn("python", ["listener.py"]);
-    listener.stdout.on("data", data => {
       
+      reply(String(data))
+    });
+  }
+
+  ipcMain.on("download", (e) => { download(cb.paste()) });
+
+  ipcMain.on("toggleListener", (e) => {
+    if (listener) {
+      console.log("Killing")
+      listener.kill();
+      listener = undefined;
+      return;
+    }
+    
+    console.log("Spawning")
+    listener = spawn("python", ["util/listener.py"]);
+ 
+    listener.stdout.on("data", data => {
+      console.log(`Downloading ${data}`)
+
+      download(data, reply => {
+        e.sender.send("progress", reply)
+      });
     });
   });
 
