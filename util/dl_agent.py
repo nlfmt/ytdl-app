@@ -1,4 +1,4 @@
-import sys, re, subprocess, time
+import sys, re, subprocess, time, json, os
 from datetime import datetime
 from pathlib import Path
 
@@ -9,18 +9,27 @@ last_perc = ""
 def progress_hook(d):
 
     global last_perc
+
+    # with open("hookdata.json", "w") as f:
+    #     f.write(json.dumps(d, indent=2))
     
     if d["status"] == "downloading":
 
         is_audio = d["filename"][-3:] == "m4a"
 
-        percentage = str( int( round( float(d["downloaded_bytes"]) / float(d["total_bytes"]) * 100, 1) ) )
+        if "total_bytes" in d:
+            total = d["total_bytes"]
+        else:
+            total = d["total_bytes_estimate"]
+
+        percentage = str( int( round( float(d["downloaded_bytes"]) / float(total) * 100, 1) ) )
         percentage = "0" * (3 - len(percentage)) + percentage
 
-        if percentage == last_perc:
+        if percentage == last_perc or percentage < last_perc:
             return
         
         last_perc = percentage
+        if percentage == 100: last_perc = 0
 
         msg = "audio " if is_audio else "video "
 
@@ -54,7 +63,11 @@ def convertMKV(fn):
 
     if Path(filebase + ".mkv").is_file():
         subprocess.Popen(f"ffmpeg -hide_banner -loglevel warning -i {filebase + '.mkv'} -map 0 -c copy -c:a aac {filebase + '.mp4'} && del {filebase + '.mkv'}".split(" "), shell=True)
-        print("file " + filebase + ".mp4", flush=True, end="")
+        # print("file " + os.getcwd() + filebase + ".mp4", flush=True, end="")
+        print(f"file {os.getcwd()}\{filebase}.mp4", flush=True, end="")
+    else:
+        # print("file " + os.getcwd() + fn, flush=True, end="")
+        print(f"file {os.getcwd()}\{fn}", flush=True, end="")
 
 
 
@@ -75,11 +88,24 @@ data = dl.extract_info(url, download=False)
 title = data.get('title')
 site = data.get('extractor')
 
-with open("log", "a") as f:
-    f.write(f"[{data.get('extractor')}] {title} URL: {url}\n")
+# with open("log", "a") as f:
+#     f.write(f"[{data.get('extractor')}] {title} URL: {url}\n")
 
-# print info
-#print(f"\033[31m[{data.get('extractor')}]\033[0m {title}")
+info = {
+    "duration": data.get("duration"),
+    "title": data.get("title"),
+    "origin": data.get("extractor_key"),
+    "thumbnail": data.get("thumbnails")[-1]["url"],
+    "uploader": data.get("uploader"),
+    "view_count": data.get("view_count"),
+    "like_count": data.get("like_count"),
+    "description": data.get("description")
+}
+
+print(f"info {json.dumps(info)}", flush=True, end="")
+time.sleep(0.5)
+# with open("data.json", "w") as f:
+#     f.write(json.dumps(data, indent=2))
 
 
 # download, convert if output is .mkv file

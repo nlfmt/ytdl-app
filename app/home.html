@@ -4,12 +4,51 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>VideoDL</title>
+    <link rel="stylesheet" href="fa/css/all.css">
+    <link rel="stylesheet" href="css/main.css">
     <script src="app.js" defer></script>
 </head>
 <body>
-    <button id="download" onClick="download()">Download URL</button>
+    <div class="sidebar">
+        <div class="sidebar-element logo" id="toggle-button"><i class="fab fa-atlassian"></i><span>Video DL</span></div>
+        <div class="separator"></div>
+        <div class="sidebar-element button" id="download-page"><i class="fas fa-download"></i><span>Downloads</span></div>
+        <div class="sidebar-element button" id="convert-page"><i class="fas fa-exchange-alt"></i><span>Convert</span></div>
+        <div class="separator"></div>
+        <div class="sidebar-element button" id="settings-page"><i class="fas fa-cog"></i><span>Settings</span></div>
+    </div>
+    <div class="app-content">
+        <div class="top-bar">
+            <div class="drag-area">Video Downloader</div>
+            <button class="window-button minimize" onClick="minimize()"><img src="img/minimize_icon.svg"></button>
+            <button class="window-button maximize" onClick="maximize()"><img src="img/maximize_icon.svg"></button>
+            <button class="window-button close" onClick="_close()"><img src="img/close_icon.svg"></button>
+        </div>
+        <div class="tool-bar">
+            <button class="window-button" onClick="download()">Download</button>
+            <button id="toggleListener" class="window-button" onClick="toggleListener()">Start Listener</button>
+        </div>
+        <div class="downloads">
+            <div class="popup-info"></div>
+        </div>
+        <div class="convert hidden">Convert</div>
+        <div class="settings hidden">
+            <input type="text" id="name">
+            <input type="text" id="name">
+            <input type="text" id="name">
+            <input type="text" id="name">
+            <input type="text" id="name">
+        </div>
+    </div>
+    <!-- <button id="download" onClick="download()">Download URL</button>
     <button id="toggleListener" onClick="toggleListener()">Start Listening</button>
-    <progress value="0" max="100"></progress>
+    <progress value="0" max="100"></progress> -->
+
+    <!-- <div class="bg-effect blob1"></div>
+    <div class="bg-effect blob2"></div>
+    <div class="bg-effect blob3"></div>
+    <div class="bg-effect blob4"></div> -->
+
 </body>
 </html>

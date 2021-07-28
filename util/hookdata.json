@@ -1,0 +1,16 @@
+{
+  "status": "downloading",
+  "downloaded_bytes": 1024,
+  "fragment_index": 0,
+  "fragment_count": 40,
+  "filename": "videos\\HOA.fhls-fastly_skyfire_sep-5699.mp4",
+  "tmpfilename": "videos\\HOA.fhls-fastly_skyfire_sep-5699.mp4.part",
+  "elapsed": 0.22406888008117676,
+  "total_bytes_estimate": 162604960.0,
+  "eta": 35580,
+  "speed": 1023342.2196807243,
+  "_eta_str": "09:53:00",
+  "_percent_str": "  0.0%",
+  "_speed_str": "999.36KiB/s",
+  "_total_bytes_estimate_str": "155.07MiB"
+}
