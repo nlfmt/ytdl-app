@@ -25,10 +25,6 @@
             <button class="window-button maximize" onClick="maximize()"><img src="img/maximize_icon.svg"></button>
             <button class="window-button close" onClick="_close()"><img src="img/close_icon.svg"></button>
         </div>
-        <div class="tool-bar">
-            <button class="window-button" onClick="download()">Download</button>
-            <button id="toggleListener" class="window-button" onClick="toggleListener()">Start Listener</button>
-        </div>
         <div class="downloads">
             <div class="popup-info"></div>
         </div>
@@ -39,6 +35,10 @@
             <input type="text" id="name">
             <input type="text" id="name">
             <input type="text" id="name">
+        </div>
+        <div class="tool-bar">
+            <button onClick="download()"></button>
+            <button id="toggleListener" onClick="toggleListener()"></button>
         </div>
     </div>
     <!-- <button id="download" onClick="download()">Download URL</button>

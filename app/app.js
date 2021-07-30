@@ -2,28 +2,65 @@ const electron = require("electron");
 
 const { ipcRenderer, shell } = electron;
 
+const raw = (...args) => {
+    let tmp = document.createElement("template");
+    tmp.innerHTML = String.raw(...args);
+    return tmp;
+}
 
-// DONE:
-//  - save more often! (on state update)
-//  - Add links, maybe refactor html elements to a's
-//  - Add custom context menu with per element options (custom class etc, delete, convert)
-//  - Add Sidebar
-//
-// TODO: 
-//  - Connect Sidebar Buttons to pages
-//  - Settings with Theme, video save location (specific for different formats)
-//  - List-like appearrance where you can add new rules. Rules consist of an Regular expression? a save location and an filename template.
-//  - Add Lower bar with Download and Lsitener buttons
-//  - Add Descripütion html with uploader, likes etc
-//  - Add Download class in index.js, to keep track of running downloads
-//  - Add Capabilities to resume downloads? test if ypoutube-dl autoresumes if part file exists
-//  - Cancel Downloads on app exit, prompt on app exit if still downloading
-//  - Refactor and organize
-//  - Add Sort dropdown (sort by date, length, add search ?)
-//  - Bottom bar format dropdown
+const Component = (title="hi", las="4") => raw`
+    <div>
+        <p>Helo lul, title: ${title}</p>
+        <p>las: ${las}</p>
+    </div>
+`;
+const Component2 = () => raw`
+    <div>
+        <p>Helo lul, title</p>
+        <p>las</p>
+    </div>
+`;
+
+console.log(Component())
+console.log(Component2())
+
+/*
+* DONE:
+ - save more often! (on state update)
+ - Add links, maybe refactor html elements to a's
+ - Add custom context menu with per element options (custom class etc, delete, convert)
+ - Add Sidebar
+ - Connect Sidebar Buttons to pages
+
+! TODO: 
+- Settings
+    - Theme
+    - video save location (specific for different formats)
+    - List-like appearrance with rules that consist of an Regular expression? a save location and an filename template.
+        - Add remove duplicate buttons
+    - Download Speed Limit (0 = infinite)
+
+- Add Sort dropdown (sort by date, length, add search ?) change download div insertion!
+- Add Popup with more Info? or:
+- Add uploader, likes etc to description div
+
+- Add Lower bar with Download and Listener buttons
+- Bottom bar format dropdown with items default, mp4, mp3, wav,...
+
+- Look at python script and write out every parameter that can be passed and write keyword system, (--folder "myfolder") !argparse module!
+
+- Add Download class in index.js, to keep track of running downloads
+
+- Download pausing/resuming/cancelling:
+    - Add Capabilities to resume downloads? test if ypoutube-dl autoresumes if part file exists
+    - Cancel Downloads on app exit, prompt on app exit if still downloading
+
+- Refactor and organize
+*/
 
 
 
+// Catch Weblinks and open them in the default Browser
 document.body.addEventListener('click', event => {
 
     if (event.target.tagName.toLowerCase() === 'a') {
@@ -107,11 +144,11 @@ function toggleListener(){
 
     ipcRenderer.send("listener:toggle");
 
-    if (listening){
-        document.querySelector("#toggleListener").innerHTML = "Start Listening";
-    } else {
-        document.querySelector("#toggleListener").innerHTML = "Stop Listening";
-    }
+    // if (listening){
+    //     // document.querySelector("#toggleListener").innerHTML = "Start Listening";
+    // } else {
+    //     // document.querySelector("#toggleListener").innerHTML = "Stop Listening";
+    // }
     listening = !listening;
 }
 
@@ -400,23 +437,34 @@ class Download {
         this.html.querySelector(".title").innerText = this.title;
         this.html.querySelector(".thumbnail").style.backgroundImage = thumb_style;
 
-        let desc_words = this.description.replace(/\n/g, " <br>").split(" ");
 
-        for (const [i, word] of desc_words.entries()) {
+        // Match all urls and wrap them in a tags, then replace \n with <br>
+        let description = this.description.replace(/(https?:\/\/.+\..+\S*)/g, "<a href='$1'>$1</a>");
+        description = description.replace(/\n/g, "<br>");
 
-            if (word.startsWith("http")) {
-                desc_words[i] = `<a href="${word}" target="_blank">${word}</a>`
-            }
-        }
-
-        this.html.querySelector(".description").innerHTML = desc_words.join(" ") || "";
+        this.html.querySelector(".description").innerHTML = description || "";
 
     }
 
     setHtml() {
         this.html = document.createElement("div");
         this.html.classList.add("download");
-        this.html.innerHTML = `<div class="dl-wrapper dblclick"> <div class="thumbnail dblclick"></div> <span class="title dblclick">...</span> <div class="info"><span class="duration">--:--</span><a class="origin">...</a></div><i class="expand-button fas fa-chevron-down"></i><div class="state">Initializing</div><progress max="100" value="0"></progress></div><div class="description"></div>`;
+
+        this.html = raw`
+            <div class="dl-wrapper dblclick">
+                <div class="thumbnail dblclick"></div>
+                    <span class="title dblclick">...</span>
+                    <div class="info">
+                        <span class="duration">--:--</span>
+                        <a class="origin">...</a>
+                    </div>
+                    <i class="expand-button fas fa-chevron-down"></i>
+                    <div class="state">Initializing</div>
+                    <progress max="100" value="0"></progress>
+                </div>
+            <div class="description"></div>`;
+
+        // console.log(this.html.children)
 
         this.html.addEventListener("dblclick", (e) => {
 
