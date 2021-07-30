@@ -4,25 +4,10 @@ const { ipcRenderer, shell } = electron;
 
 const raw = (...args) => {
     let tmp = document.createElement("template");
-    tmp.innerHTML = String.raw(...args);
-    return tmp;
+    tmp.innerHTML = String.raw(...args).replace(/\n|\t/g, "");
+    return tmp.content.childNodes[1];
 }
 
-const Component = (title="hi", las="4") => raw`
-    <div>
-        <p>Helo lul, title: ${title}</p>
-        <p>las: ${las}</p>
-    </div>
-`;
-const Component2 = () => raw`
-    <div>
-        <p>Helo lul, title</p>
-        <p>las</p>
-    </div>
-`;
-
-console.log(Component())
-console.log(Component2())
 
 /*
 * DONE:
@@ -59,6 +44,12 @@ console.log(Component2())
 */
 
 
+//* Components
+
+const InputComponent = (type="text", value="", placeholder="") => raw`
+    <input type="${type}" value="${value}" placeholder="${placeholder}" >
+`;
+document.querySelector(".tool-bar").appendChild(InputComponent(type="number", value="5", placeholder="8"))
 
 // Catch Weblinks and open them in the default Browser
 document.body.addEventListener('click', event => {
@@ -451,20 +442,21 @@ class Download {
         this.html.classList.add("download");
 
         this.html = raw`
-            <div class="dl-wrapper dblclick">
-                <div class="thumbnail dblclick"></div>
-                    <span class="title dblclick">...</span>
-                    <div class="info">
-                        <span class="duration">--:--</span>
-                        <a class="origin">...</a>
+            <div class="download">
+                <div class="dl-wrapper dblclick">
+                    <div class="thumbnail dblclick"></div>
+                        <span class="title dblclick">...</span>
+                        <div class="info">
+                            <span class="duration">--:--</span>
+                            <a class="origin">...</a>
+                        </div>
+                        <i class="expand-button fas fa-chevron-down"></i>
+                        <div class="state">Initializing</div>
+                        <progress max="100" value="0"></progress>
                     </div>
-                    <i class="expand-button fas fa-chevron-down"></i>
-                    <div class="state">Initializing</div>
-                    <progress max="100" value="0"></progress>
-                </div>
-            <div class="description"></div>`;
+                <div class="description"></div>
+            </div>`;
 
-        // console.log(this.html.children)
 
         this.html.addEventListener("dblclick", (e) => {
 
