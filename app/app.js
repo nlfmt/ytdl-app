@@ -24,10 +24,12 @@ const raw = (...args) => {
     - List-like appearrance with rules that consist of an Regular expression? a save location and an filename template.
         - Add remove duplicate buttons
     - Download Speed Limit (0 = infinite)
+    - Compact View?
 
 - Add Sort dropdown (sort by date, length, add search ?) change download div insertion!
 - Add Popup with more Info? or:
 - Add uploader, likes etc to description div
+- Compact Mode?
 
 - Add Lower bar with Download and Listener buttons
 - Bottom bar format dropdown with items default, mp4, mp3, wav,...
@@ -40,16 +42,26 @@ const raw = (...args) => {
     - Add Capabilities to resume downloads? test if ypoutube-dl autoresumes if part file exists
     - Cancel Downloads on app exit, prompt on app exit if still downloading
 
+- Converter
+    - Add Conversion class with html etc
+    - custom convertpage lower bar
+
+
 - Refactor and organize
 */
 
 
 //* Components
 
-const InputComponent = (type="text", value="", placeholder="") => raw`
-    <input type="${type}" value="${value}" placeholder="${placeholder}" >
+const InputComponent = (type="text", name="input", label="Input", value="", placeholder="") => raw`
+    <div class="input-field">
+        <label for="${name}">${label}</label>
+        <input type="${type}" id="${name}" value="${value}" placeholder="${placeholder}">
+    </div>
 `;
-document.querySelector(".tool-bar").appendChild(InputComponent(type="number", value="5", placeholder="8"))
+
+
+
 
 // Catch Weblinks and open them in the default Browser
 document.body.addEventListener('click', event => {
