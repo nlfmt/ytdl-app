@@ -9,6 +9,7 @@ const raw = (...args) => {
 }
 
 
+
 /*
 * DONE:
  - save more often! (on state update)
@@ -19,7 +20,7 @@ const raw = (...args) => {
 
 ! TODO: 
 - Settings
-    - Theme
+    - Theme (Editor?)
     - video save location (specific for different formats)
     - List-like appearrance with rules that consist of an Regular expression? a save location and an filename template.
         - Add remove duplicate buttons
@@ -47,7 +48,8 @@ const raw = (...args) => {
     - custom convertpage lower bar
 
 
-- Refactor and organize
+- Refactor and organize into multiple files
+- Check if class structure and variable names are consistent
 */
 
 
@@ -63,7 +65,7 @@ const InputComponent = (type="text", name="input", label="Input", value="", plac
 
 
 
-// Catch Weblinks and open them in the default Browser
+// Catch Weblinks and open them In the default Browser
 document.body.addEventListener('click', event => {
 
     if (event.target.tagName.toLowerCase() === 'a') {
@@ -596,13 +598,13 @@ class Download {
 
 
 // Window Events
-function minimize(){
+document.querySelector(".window-button.minimize").onclick = () => {
     ipcRenderer.send("window:minimize");
 }
-function maximize(){
+document.querySelector(".window-button.maximize").onclick = () => {
     ipcRenderer.send("window:maximize");
 }
-function _close(){
+document.querySelector(".window-button.close").onclick = () => {
     DownloadManager.save();
     ipcRenderer.send("window:close");
 }
@@ -621,6 +623,9 @@ ipcRenderer.send("storage:load");
 ipcRenderer.on("storage:data", (e, data) => {
     DownloadManager.load(data);
 })
+
+
+// SideBar.showPage(".settings");
 
 
 // Util

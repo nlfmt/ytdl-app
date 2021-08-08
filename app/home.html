@@ -7,7 +7,7 @@
     <title>VideoDL</title>
     <link rel="stylesheet" href="fa/css/all.css">
     <link rel="stylesheet" href="css/main.css">
-    <script src="app.js" defer></script>
+    <script type="module" src="app.js"></script>
 </head>
 <body>
     <div class="sidebar">
@@ -30,11 +30,25 @@
         </div>
         <div class="convert hidden">Convert</div>
         <div class="settings hidden">
-            <input type="text" id="name">
-            <input type="text" id="name">
-            <input type="text" id="name">
-            <input type="text" id="name">
-            <input type="text" id="name">
+            <div class="input-field">
+                <label for="dlSpeed">Download Speed</label>
+                <input type="number" id="dlSpeed" value="0" placeholder="">
+            </div>
+            <div class="save-rules">
+                <div class="btn-wrapper">
+                    <span>Save Rules</span>
+                    <div class="spacer"></div>
+                        
+                    <button class="btn-new"><i class="fas fa-plus"></i>Add</button>
+                    <button class="btn-remove"><i class="fas fa-trash"></i>Remove</button>
+                    <button class="btn-duplicate"><i class="fas fa-copy"></i>Duplicate</button>
+                </div>
+                <div class="rule-list">
+                    <div class="rule">
+                       lol 
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="tool-bar">
             <button onClick="download()"></button>

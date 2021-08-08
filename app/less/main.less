@@ -9,7 +9,8 @@
 @white: #b2b8c0;
 
 @acc1: #75d06b;
-// @acc1: #5BA253;
+@acc1: #5BA253;
+
 
 @bg2: #26282c;
 @bg1: #1e2024;
@@ -20,7 +21,7 @@
 
 
 * {
-    font-family: "Montserrat", "PT Sans", "Montserrat", sans-serif;
+    font-family: "Montserrat", "PT Sans", sans-serif;
 
     box-sizing: border-box;
 
@@ -75,12 +76,15 @@ body {
 }
 
 .app-page() {
+    
+    @dist: @top-bar-height + @tool-bar-height;
 
-    height: calc(100vh - @top-bar-height - @tool-bar-height);
+
+    height: calc(100vh - @dist);
     margin-right: 5px;
     overflow-y: scroll;
 
-    .scrollbar();
+    .scrollbar;
 }
 
 
@@ -465,6 +469,81 @@ body {
 .settings {
 
     .app-page();
+    
+    
+     .save-rules {
+        
+        display: grid;
+        grid-template-rows: 50px 500px;
+        
+        padding: 0 10px;
+        margin: 20px;
+        
+        border-radius: 20px;
+        
+        
+        background: @bg2;
+        
+        .btn-wrapper {
+            display: flex;
+            align-items: center;
+            
+            .spacer {
+                flex-grow: 1;
+            }
+            
+            span {
+                color: @white;
+                font-size: 14pt;
+            }
+        }
+        
+         
+        
+        button {
+            border: none;
+            padding: 0 15px;
+            height: 30px;
+            border-radius: 500px;
+            background: @bg1;
+
+            
+            margin-right: 10px;
+            
+            &.btn-new {
+                color: @acc1;
+            }
+            &.btn-remove {
+                color: @red;
+            }
+            &.btn-duplicate {
+                color: @white;
+            }
+            
+            i {
+                margin-right: 10px;
+            }
+        }
+        
+        .rule-list {
+            
+            background: @bg1;
+            
+            border-radius: 10px;
+            padding: 10px;
+            
+            
+            .rule {
+                background: @bg2;
+                heigth: 35px;
+                width: 100%;
+            }
+            
+            .rule + .rule {
+                margin-top: 5px;
+            }
+        }
+    }
 
 }
 

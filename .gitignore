@@ -105,3 +105,6 @@ dist
 
 # Downloaded Videos
 videos/
+
+# Compiled Css
+app/css/

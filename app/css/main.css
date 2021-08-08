@@ -3,7 +3,7 @@
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_ZpC7g4.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/montserrat/v17/JTURjIg1_i6t8kCHKm45_ZpC7g4.ttf) format('truetype');
 }
 @font-face {
   font-family: 'PT Sans';
@@ -20,7 +20,7 @@
   src: url(https://fonts.gstatic.com/s/ptsans/v12/jizfRExUiTo99u79B_mh4Ok.ttf) format('truetype');
 }
 * {
-  font-family: "Montserrat", "PT Sans", "Montserrat", sans-serif;
+  font-family: "Montserrat", "PT Sans", sans-serif;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -66,14 +66,14 @@ body {
   transition: background-color 200ms ease;
 }
 .sidebar .sidebar-element.button:hover i {
-  color: #75d06b;
+  color: #5BA253;
 }
 .sidebar .sidebar-element.button:hover span {
-  color: #75d06b;
+  color: #5BA253;
   padding-left: 10px;
 }
 .sidebar .sidebar-element.button:active i {
-  color: #4e7c4c;
+  color: #416540;
 }
 .sidebar .sidebar-element i {
   font-size: 20px;
@@ -95,7 +95,7 @@ body {
 }
 .sidebar .sidebar-element.logo i,
 .sidebar .sidebar-element.logo span {
-  color: #75d06b;
+  color: #5BA253;
 }
 .sidebar .sidebar-element.logo i {
   transform: rotate(180deg);
@@ -134,7 +134,7 @@ body {
   background: #353940;
 }
 .top-bar .window-button.close:hover {
-  background: #75d06b;
+  background: #5BA253;
 }
 .top-bar .window-button img {
   width: 41%;
@@ -147,7 +147,7 @@ body {
   display: none;
 }
 .downloads {
-  height: calc(100vh - 25px - 45px);
+  height: calc(100vh - 70px);
   margin-right: 5px;
   overflow-y: scroll;
   display: flex;
@@ -166,7 +166,7 @@ body {
 }
 .downloads::-webkit-scrollbar-thumb {
   border-radius: 4px;
-  background: #75d06b;
+  background: #5BA253;
   transition: width 0.2s ease;
 }
 .downloads::-webkit-scrollbar-thumb:hover {
@@ -239,7 +239,7 @@ body {
   height: 10px;
 }
 .downloads .download .dl-wrapper progress::-webkit-progress-value {
-  background: #75d06b;
+  background: #5BA253;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -263,7 +263,7 @@ body {
   text-decoration: none;
 }
 .downloads .download .dl-wrapper .info .origin:hover {
-  color: #75d06b;
+  color: #5BA253;
   opacity: 80%;
 }
 .downloads .download .dl-wrapper .expand-button {
@@ -275,7 +275,7 @@ body {
   transition: transform 200ms ease;
 }
 .downloads .download .dl-wrapper .expand-button:hover {
-  color: #75d06b;
+  color: #5BA253;
   opacity: 100%;
 }
 .downloads .download .dl-wrapper .expand-button.opened {
@@ -293,7 +293,7 @@ body {
   padding-bottom: 15px;
 }
 .downloads .download .description a {
-  color: #75d06b;
+  color: #5BA253;
 }
 .downloads .popup-info {
   position: fixed;
@@ -314,7 +314,7 @@ body {
   opacity: 100%;
 }
 .convert {
-  height: calc(100vh - 25px - 45px);
+  height: calc(100vh - 70px);
   margin-right: 5px;
   overflow-y: scroll;
 }
@@ -329,7 +329,7 @@ body {
 }
 .convert::-webkit-scrollbar-thumb {
   border-radius: 4px;
-  background: #75d06b;
+  background: #5BA253;
   transition: width 0.2s ease;
 }
 .convert::-webkit-scrollbar-thumb:hover {
@@ -340,7 +340,7 @@ body {
   background: #26282c;
 }
 .settings {
-  height: calc(100vh - 25px - 45px);
+  height: calc(100vh - 70px);
   margin-right: 5px;
   overflow-y: scroll;
 }
@@ -355,7 +355,7 @@ body {
 }
 .settings::-webkit-scrollbar-thumb {
   border-radius: 4px;
-  background: #75d06b;
+  background: #5BA253;
   transition: width 0.2s ease;
 }
 .settings::-webkit-scrollbar-thumb:hover {
@@ -364,6 +364,58 @@ body {
 .settings::-webkit-scrollbar-track {
   border-radius: 4px;
   background: #26282c;
+}
+.settings .save-rules {
+  display: grid;
+  grid-template-rows: 50px 500px;
+  padding: 0 10px;
+  margin: 20px;
+  border-radius: 20px;
+  background: #26282c;
+}
+.settings .save-rules .btn-wrapper {
+  display: flex;
+  align-items: center;
+}
+.settings .save-rules .btn-wrapper .spacer {
+  flex-grow: 1;
+}
+.settings .save-rules .btn-wrapper span {
+  color: #b2b8c0;
+  font-size: 14pt;
+}
+.settings .save-rules button {
+  border: none;
+  padding: 0 15px;
+  height: 30px;
+  border-radius: 500px;
+  background: #1e2024;
+  margin-right: 10px;
+}
+.settings .save-rules button.btn-new {
+  color: #5BA253;
+}
+.settings .save-rules button.btn-remove {
+  color: #d15438;
+}
+.settings .save-rules button.btn-duplicate {
+  color: #b2b8c0;
+}
+.settings .save-rules button i {
+  margin-right: 10px;
+}
+.settings .save-rules .rule-list {
+  background: #1e2024;
+  border-radius: 10px;
+  padding: 10px;
+}
+.settings .save-rules .rule-list .rule {
+  background: #26282c;
+  heigth: 35px;
+  width: 100%;
+}
+.settings .save-rules .rule-list .rule + .rule {
+  margin-top: 5px;
 }
 .tool-bar {
   position: relative;
@@ -376,7 +428,7 @@ body {
 .tool-bar button {
   width: 120px;
   border: none;
-  color: #75d06b;
+  color: #5BA253;
 }
 .context-menu {
   position: fixed;
@@ -398,7 +450,7 @@ body {
   color: #b2b8c0;
 }
 .context-menu .context-menu-item:hover {
-  color: #75d06b;
+  color: #5BA253;
   background: #26282c;
 }
 .context-menu .separator {
