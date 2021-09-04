@@ -18,7 +18,7 @@ const raw = (...args) => {
  - Add Sidebar
  - Connect Sidebar Buttons to pages
 
-! TODO: 
+  TODO:
 - Settings
     - Theme (Editor?)
     - video save location (specific for different formats)
