@@ -2,16 +2,20 @@ import sys, re, subprocess, time, json, os
 from datetime import datetime
 from pathlib import Path
 
-from youtube_dl import YoutubeDL
+from yt_dlp import YoutubeDL
 
 last_perc = ""
 
 def progress_hook(d):
 
+    # del d["formats"]
+    # print(json.dumps(d, indent=2))
+
     global last_perc
 
     # with open("hookdata.json", "w") as f:
     #     f.write(json.dumps(d, indent=2))
+    # exit()
     
     if d["status"] == "downloading":
 
@@ -46,7 +50,13 @@ ydl_opts = {
     "outtmpl": "videos/%(title)s.%(ext)s",
     "quiet": True,
     "no_warnings": True,
-    "progress_hooks": [progress_hook]
+    "verbose": False,
+    "progress_hooks": [progress_hook],
+    "noprogress": True,
+    "postprocessor_args": {
+        "ffmpeg": ["-v", "error"]
+    }
+    # "requested_formats": "mp4"
 }
 dl_opts = {
     "outtmpl": "videos/%(title)s.%(ext)s",
@@ -83,7 +93,7 @@ else:
 
 
 # extract data (title)
-data = dl.extract_info(url, download=False)
+data = dl.sanitize_info(dl.extract_info(url, download=False))
 #print(f"{int(data['duration'] / 60)}min {data['duration'] % 60}s")
 title = data.get('title')
 site = data.get('extractor')

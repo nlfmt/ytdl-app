@@ -3,14 +3,14 @@ const { app, BrowserWindow, ipcMain, dialog, shell } = electron;
 
 const fs = require("fs");
 const cb = require("copy-paste");
-const { spawn } = require("child_process");
+const { spawn, exec } = require("child_process");
 
 
 
 winPreferences = {
   frame: false,
   background: "transparent",
-  webPreferences:{nodeIntegration:true},
+  webPreferences:{nodeIntegration:true, contextIsolation: false},
   width: 1000,
   height: 580
 }
@@ -133,7 +133,8 @@ app.on("ready", () => {
   });
 
   ipcMain.on("shell:showfile", (e, path) => {
-    let exp = spawn("explorer.exe", ["/select,", path]);
+    console.log("Running: ", `explorer.exe /select,"${path}"`);
+    let exp = exec(`explorer.exe /select,"${path}"`);
     exp.stdout.on("data", (d)=>console.log(d));
     exp.stderr.on("data", (d)=>console.log(d));
   });

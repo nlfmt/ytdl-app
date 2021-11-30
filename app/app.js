@@ -478,6 +478,7 @@ class Download {
 
             window.getSelection().removeAllRanges();
             if (this.filename) {
+                console.log("Opening path...", this.filename)
                 shell.openPath(this.filename)
             }
         });
